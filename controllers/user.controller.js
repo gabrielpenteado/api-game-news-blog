@@ -1,9 +1,9 @@
-const userService = require("../services/user.service")
+const userService = require("../services/user.service");
 
 const userController = {
   create: async (req, res) => {
     try {
-      const { username, email, password } = req.body;
+      const { name, username, email, password, avatar, background } = req.body;
 
       if (!username || !email || !password) {
         return res.status(400).json({ message: "Please, submit all fields for user registration." })
@@ -19,9 +19,12 @@ const userController = {
         message: "User created.",
         user: {
           id: user._id,
+          name,
           username,
           email,
-          password
+          password,
+          avatar,
+          background
         }
       });
 
@@ -76,7 +79,7 @@ const userController = {
 
   update: async (req, res) => {
     try {
-      const { username, email, password } = req.body;
+      const { name, username, email, password, avatar, background } = req.body;
 
       if (!username && !email && !password) {
         return res.status(400).json({ message: "Please, submit at least one field for update user." })
@@ -96,9 +99,12 @@ const userController = {
 
       await userService.update(
         id,
+        name,
         username,
         email,
-        password
+        password,
+        avatar,
+        background
       );
 
       res.status(200).json({ message: "User updated." })

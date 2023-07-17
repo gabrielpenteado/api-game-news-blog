@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 require('dotenv').config();
 
-const DATABASE_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@api.yvicmai.mongodb.net/?retryWrites=true&w=majority`
+const DATABASE_URL = process.env.DATABASE_URL;
 
 const connectDatabase = async () => {
   try {
