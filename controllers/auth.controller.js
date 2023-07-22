@@ -21,7 +21,9 @@ const authController = {
       }
       // console.log(passwordIsValid);
 
-      res.json("Login ok");
+      const token = authService.generateToken(user.id);
+
+      res.json({ token });
 
     } catch (error) {
       // console.log(error);
