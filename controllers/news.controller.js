@@ -109,6 +109,85 @@ const newsController = {
       res.status(500).json(error.message);
     }
 
+  },
+  findById: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const news = await newsService.findById(id);
+
+      return res.json({
+        news: {
+          id: news._id,
+          title: news.title,
+          text: news.text,
+          banner: news.banner,
+          likes: news.likes,
+          comments: news.comments,
+          name: news.user.name,
+          username: news.user.username,
+          userAvatar: news.user.avatar
+        }
+      })
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error.message);
+    }
+  },
+  searchByTitle: async (req, res) => {
+    try {
+      const { title } = req.query;
+
+      const news = await newsService.searchByTitle(title);
+
+      if (news.length === 0) {
+        return res.status(400).json({ message: "No news with this title." })
+      }
+
+      return res.json({
+        results: news.map(item => ({
+          id: item._id,
+          title: item.title,
+          text: item.text,
+          banner: item.banner,
+          likes: item.likes,
+          comments: item.comments,
+          name: item.user.name,
+          username: item.user.username,
+          userAvatar: item.user.avatar
+        }))
+      })
+
+    } catch (error) {
+      // console.log(error);
+      res.status(500).json(error.message)
+    }
+  },
+  byUser: async (req, res) => {
+    try {
+      const id = req.userId;
+
+      const news = await newsService.byUser(id);
+
+      return res.json({
+        results: news.map(item => ({
+          id: item._id,
+          title: item.title,
+          text: item.text,
+          banner: item.banner,
+          likes: item.likes,
+          comments: item.comments,
+          name: item.user.name,
+          username: item.user.username,
+          userAvatar: item.user.avatar
+        }))
+      })
+
+    } catch (error) {
+      // console.log(error);
+      res.status(500).json(error.message);
+    }
   }
 }
 
