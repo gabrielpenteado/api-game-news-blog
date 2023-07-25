@@ -203,17 +203,103 @@ const newsController = {
       // console.log(req.userId);
 
       if (String(news.user._id) !== String(req.userId)) {
-        return res.status(400).json({ message: "You can't update this post." });
+        return res.status(400).json({ message: "You can't update this new." });
       }
 
       await newsService.update(id, title, text, banner);
 
-      return res.status(200).json({ message: "Post succesfully updated." })
+      return res.status(200).json({ message: "New succesfully updated." })
 
 
     } catch (error) {
       // console.log(error);
       res.status(500).json({ message: error.message })
+    }
+  },
+  delete: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const news = await newsService.findById(id);
+
+      if (String(news.user._id) !== String(req.userId)) {
+        return res.status(400).json({ message: "You can't delete this new." });
+      }
+
+      await newsService.delete(id);
+
+      return res.status(200).json({ message: "New was deleted." })
+
+    } catch (error) {
+      // console.log(error);
+      res.status(500).json({ message: error.message });
+    }
+
+
+  },
+  likeNews: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.userId;
+
+      const newsLiked = await newsService.likeNews(id, userId);
+
+      if (!newsLiked) {
+        await newsService.deleteLikeNews(id, userId);
+
+        return res.status(200).json({ message: "Unlike!" })
+      }
+
+      return res.json("Like!")
+
+    } catch (error) {
+      // console.log(error);
+      res.status(500).json({ message: error.message })
+    }
+  },
+  addComment: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.userId;
+      const { comment } = req.body;
+
+      if (!comment) {
+        return res.status(400).json({ message: "Write a message to comment." });
+      }
+
+      await newsService.addComment(id, comment, userId);
+
+      res.status(200).json({ message: "Comment created." })
+
+    } catch (error) {
+      // console.log(error);
+      res.status(500).json({ message: error.message })
+    }
+  },
+  deleteComment: async (req, res) => {
+    try {
+      const { idNews, idComment } = req.params;
+      const userId = req.userId;
+      // console.log(userId);
+
+      const commentDeleted = await newsService.deleteComment(idNews, idComment, userId);
+      // console.log(commentDeleted);
+
+      const commentFinder = commentDeleted.comments.find(comment => comment.idComment === idComment);
+
+      if (String(!commentFinder)) {
+        return res.status(400).json({ message: "Comment not found." });
+      }
+
+      if (String(commentFinder.userId) !== String(userId)) {
+        return res.status(400).json({ message: "You can't delete this comment." });
+      }
+
+      res.status(200).json({ message: "Comment deleted." });
+
+    } catch (error) {
+      // console.log(error);
+      res.status(500).json({ message: error.message });
     }
   }
 }

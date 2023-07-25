@@ -12,6 +12,11 @@ router.get("/byuser", authMiddleware, newsController.byUser);
 router.get("/:id", authMiddleware, newsController.findById);
 
 router.patch("/:id", authMiddleware, newsController.update);
+router.patch("/like/:id", authMiddleware, newsController.likeNews);
+router.patch("/comment/:id", authMiddleware, newsController.addComment);
+router.patch("/comment/:idNews/:idComment", authMiddleware, newsController.deleteComment);
+
+router.delete("/:id", authMiddleware, newsController.delete)
 
 
 module.exports = router;
