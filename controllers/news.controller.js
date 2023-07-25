@@ -188,6 +188,33 @@ const newsController = {
       // console.log(error);
       res.status(500).json(error.message);
     }
+  },
+  update: async (req, res) => {
+    try {
+      const { title, text, banner } = req.body;
+      const { id } = req.params;
+
+      if (!title && !text && !banner) {
+        return res.status(400).json({ message: "Please, submit at least one field for update the post." });
+      }
+
+      const news = await newsService.findById(id);
+      // console.log(news.user._id);
+      // console.log(req.userId);
+
+      if (String(news.user._id) !== String(req.userId)) {
+        return res.status(400).json({ message: "You can't update this post." });
+      }
+
+      await newsService.update(id, title, text, banner);
+
+      return res.status(200).json({ message: "Post succesfully updated." })
+
+
+    } catch (error) {
+      // console.log(error);
+      res.status(500).json({ message: error.message })
+    }
   }
 }
 
