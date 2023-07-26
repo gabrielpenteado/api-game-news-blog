@@ -10,6 +10,10 @@
   },
   "servers": [
     {
+      "url": "https://api-game-news-blog.onrender.com/",
+      "description": "render server"
+    },
+    {
       "url": "http://localhost:3000",
       "description": "local server"
     }
