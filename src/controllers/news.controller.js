@@ -53,10 +53,11 @@ const newsController = {
       const previous = offset - limit < 0 ? null : offset - limit;
       const previousUrl = previous != null ? `${currentUrl}?limit=${limit}&offset=${previous}` : null;
 
-      if (news.length === 0) {
-        return res.status(400).json({ message: "No registered news." })
-      }
+      // if (news.length === 0) {
+      //   return res.status(400).json({ message: "No registered news." })
+      // }
 
+      news.shift(); // remove the first new.
 
       res.status(200).json({
         nextUrl,
