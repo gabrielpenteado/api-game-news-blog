@@ -23,11 +23,11 @@ const authController = {
 
       const token = authService.generateToken(user.id);
 
-      res.json({ token });
+      return res.json({ token });
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json(error.message);
+      return res.status(500).json(error.message);
 
     }
 

@@ -16,11 +16,11 @@ const newsController = {
         user: req.userId
       })
 
-      res.status(201).json("New created.")
+      return res.status(201).json("New created.")
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
     }
   },
   findAll: async (req, res) => {
@@ -59,7 +59,7 @@ const newsController = {
 
       news.shift(); // remove the first new.
 
-      res.status(200).json({
+      return res.status(200).json({
         nextUrl,
         previousUrl,
         limit,
@@ -81,7 +81,7 @@ const newsController = {
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
     }
   },
   topNews: async (req, res) => {
@@ -89,10 +89,10 @@ const newsController = {
       const news = await newsService.topNews();
 
       if (!news) {
-        res.status(400).json({ message: "No registered post." });
+        return res.status(400).json({ message: "No registered post." });
       }
 
-      res.json({
+      return res.json({
         news: {
           id: news._id,
           title: news.title,
@@ -107,7 +107,7 @@ const newsController = {
       })
     } catch (error) {
       // console.log(error);
-      res.status(500).json(error.message);
+      return res.status(500).json(error.message);
     }
 
   },
@@ -132,8 +132,8 @@ const newsController = {
       })
 
     } catch (error) {
-      console.log(error);
-      res.status(500).json(error.message);
+      // console.log(error);
+      return res.status(500).json(error.message);
     }
   },
   searchByTitle: async (req, res) => {
@@ -162,7 +162,7 @@ const newsController = {
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json(error.message)
+      return res.status(500).json(error.message)
     }
   },
   byUser: async (req, res) => {
@@ -187,7 +187,7 @@ const newsController = {
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json(error.message);
+      return res.status(500).json(error.message);
     }
   },
   update: async (req, res) => {
@@ -214,7 +214,7 @@ const newsController = {
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message })
     }
   },
   delete: async (req, res) => {
@@ -233,7 +233,7 @@ const newsController = {
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
     }
 
 
@@ -255,7 +255,7 @@ const newsController = {
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message })
     }
   },
   addComment: async (req, res) => {
@@ -270,11 +270,11 @@ const newsController = {
 
       await newsService.addComment(id, comment, userId);
 
-      res.status(200).json({ message: "Comment created." })
+      return res.status(200).json({ message: "Comment created." })
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message })
     }
   },
   deleteComment: async (req, res) => {
@@ -296,11 +296,11 @@ const newsController = {
         return res.status(400).json({ message: "You can't delete this comment." });
       }
 
-      res.status(200).json({ message: "Comment deleted." });
+      return res.status(200).json({ message: "Comment deleted." });
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
     }
   }
 }

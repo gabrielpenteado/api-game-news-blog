@@ -15,7 +15,7 @@ const userController = {
         return res.status(400).json({ message: "Error creating User." });
       }
 
-      res.status(201).json({
+      return res.status(201).json({
         message: "User created.",
         user: {
           id: user._id,
@@ -30,7 +30,7 @@ const userController = {
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
     }
   },
 
@@ -43,11 +43,11 @@ const userController = {
         return res.status(400).json({ message: "No registered users." })
       }
 
-      res.status(200).json(users);
+      return res.status(200).json(users);
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
 
     }
   },
@@ -67,11 +67,11 @@ const userController = {
       //   res.status(400).json({ message: "User not found." })
       // }
 
-      res.status(200).json(user);
+      return res.status(200).json(user);
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
 
     }
 
@@ -107,11 +107,11 @@ const userController = {
         background
       );
 
-      res.status(200).json({ message: "User updated." })
+      return res.status(200).json({ message: "User updated." })
 
     } catch (error) {
       // console.log(error);
-      res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message });
 
     }
   }
