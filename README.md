@@ -36,6 +36,7 @@
 - [mongoDB](https://www.mongodb.com/)
 - [mongoose](https://mongoosejs.com/)
 - [jwt](https://jwt.io/)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
 
 
 ### Instalattion
