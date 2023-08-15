@@ -1,3 +1,4 @@
+const authService = require("../services/auth.service");
 const userService = require("../services/user.service");
 
 const userController = {
@@ -15,6 +16,8 @@ const userController = {
         return res.status(400).json({ message: "Error creating User." });
       }
 
+      const token = authService.generateToken(user.id)
+
       return res.status(201).json({
         message: "User created.",
         user: {
@@ -25,7 +28,8 @@ const userController = {
           password,
           avatar,
           background
-        }
+        },
+        token,
       });
 
     } catch (error) {
