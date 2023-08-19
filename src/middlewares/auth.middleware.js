@@ -38,6 +38,7 @@ const authMiddleware = (req, res, next) => {
       }
 
       req.userId = user._id;
+      req.user = user;
 
       return next();
 
