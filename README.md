@@ -6,11 +6,9 @@
   The API to connect with <a href="https://github.com/gabrielpenteado/game-news-blog">game-news-blog</a> repository.
 </h2>
 
-<div align="center">
-  <a href="https://github.com/gabrielpenteado/api-game-news-blog/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/gabrielpenteado/api-game-news-blog?color=informational&style=flat-square" alt="license"/>
-  </a>
-
+<div align="center"> 
+  <img src="https://img.shields.io/github/license/gabrielpenteado/api-game-news-blog?color=informational&style=flat-square" alt="license"/>
+  
   <img src="https://img.shields.io/static/v1?label=npm&message=v9.5.1&color=informational&style=flat-square" alt="npm version">
 </div>
 
